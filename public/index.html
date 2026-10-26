@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>Brat Generator — Free Brat-Style Image Maker | Obscuraworks</title>
+  <meta name="description" content="Generate brat-style PNG images instantly. Type your text, pick colors, get a PNG. Supports emoji and long text auto-fit. Free API by Obscuraworks." />
+  <meta name="keywords" content="brat generator, brat image generator, brat style text, charli xcx brat, free image api, obscuraworks" />
+  <meta name="author" content="Obscuraworks" />
+  <link rel="canonical" href="https://brat.obscuraworks.org/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://brat.obscuraworks.org/" />
+  <meta property="og:title" content="Brat Generator — Free Brat-Style Image Maker" />
+  <meta property="og:description" content="Generate brat-style PNG images instantly. Free API by Obscuraworks." />
+  <meta property="og:image" content="https://brat.obscuraworks.org/og-image.png" />
+  <meta property="og:site_name" content="Brat Generator by Obscuraworks" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brat Generator — Free Brat-Style Image Maker" />
+  <meta name="twitter:description" content="Generate brat-style PNG images instantly. Free API by Obscuraworks." />
+  <meta name="twitter:image" content="https://brat.obscuraworks.org/og-image.png" />
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="apple-touch-icon" href="/apple-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+  <link rel="apple-touch-icon-precomposed" href="/apple-icon-precomposed.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+  <meta name="msapplication-TileColor" content="#8bce2b" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="yandex-tableau-widget" href="/manifest.json" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #ffffff;
+      --surface: #fafafa;
+      --border:  #e5e5e5;
+      --border2: #d4d4d4;
+      --text:    #0a0a0a;
+      --muted:   #737373;
+      --green:   #8bce2b;
+      --r:       8px;
+      --font:    'Geist', -apple-system, sans-serif;
+      --mono:    'Geist Mono', 'Fira Code', monospace;
+    }
+    html { font-size: 15px; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100dvh; display: flex; flex-direction: column; }
+
+    /* nav */
+    nav { border-bottom: 1px solid var(--border); padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 8px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .nav-favicon { width: 24px; height: 24px; border-radius: 6px; overflow: hidden; display: grid; place-items: center; flex-shrink: 0; }
+    .nav-favicon img { width: 24px; height: 24px; display: block; object-fit: contain; }
+    .nav-title { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; }
+    .nav-sep { color: var(--border2); font-size: 18px; font-weight: 300; margin: 0 2px; }
+    .nav-sub { font-size: 13px; color: var(--muted); }
+
+    /* main */
+    main { flex: 1; max-width: 720px; width: 100%; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* hero */
+    .hero { margin-bottom: 40px; }
+    .hero h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.3; margin-bottom: 8px; }
+    .hero p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* card */
+    .card { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .card-header { padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; align-items: center; gap: 8px; }
+    .card-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .card-header span { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+    .card-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+    /* field */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .field label .req { font-size: 11px; color: var(--muted); font-weight: 400; }
+    .input-text { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--r); font-size: 14px; font-family: var(--font); background: var(--bg); color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s; }
+    .input-text::placeholder { color: #a3a3a3; }
+    .input-text:focus { border-color: #a3a3a3; box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+    .input-text.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.1); }
+    .char-count { font-size: 11px; color: var(--muted); font-family: var(--mono); text-align: right; margin-top: 2px; }
+    .char-count.warn { color: #f59e0b; }
+    .char-count.over { color: #ef4444; }
+    .err-msg { font-size: 12px; color: #ef4444; display: none; }
+    .err-msg.show { display: block; }
+
+    /* color row */
+    .color-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .color-field { min-width: 0; overflow: hidden; }
+    .color-field label { font-size: 13px; font-weight: 500; display: block; margin-bottom: 6px; }
+    .color-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--bg); height: 40px; transition: border-color .15s, box-shadow .15s; width: 100%; }
+    .color-wrap:focus-within { border-color: #a3a3a3; box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+    .swatch-btn { width: 40px; min-width: 40px; height: 40px; border: none; border-right: 1px solid var(--border); cursor: pointer; flex-shrink: 0; position: relative; overflow: hidden; padding: 0; background: none; }
+    .swatch-btn input[type=color] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; border: none; padding: 0; }
+    .swatch { width: 100%; height: 100%; pointer-events: none; }
+    .hex-input { flex: 1; border: none; outline: none; padding: 0 10px; font-size: 13px; font-family: var(--mono); background: transparent; color: var(--text); min-width: 0; width: 0; }
+
+    /* button */
+    .btn-gen { width: 100%; height: 42px; background: var(--text); color: var(--bg); border: none; border-radius: var(--r); font-size: 14px; font-weight: 500; font-family: var(--font); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity .15s, transform .1s; letter-spacing: -0.01em; }
+    .btn-gen:hover:not(:disabled) { opacity: .85; }
+    .btn-gen:active:not(:disabled) { transform: scale(.99); }
+    .btn-gen:disabled { opacity: .4; cursor: not-allowed; }
+    .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* result */
+    .result { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; display: none; margin-top: 20px; }
+    .result.show { display: block; }
+    .result-header { padding: 11px 12px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .result-left { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); min-width: 0; }
+    .cache-badge { font-size: 10px; font-family: var(--mono); padding: 2px 6px; border-radius: 4px; font-weight: 500; border: 1px solid var(--border); background: var(--bg); white-space: nowrap; }
+    .cache-badge.hit  { color: #16a34a; border-color: #bbf7d0; background: #f0fdf4; }
+    .cache-badge.miss { color: #ca8a04; border-color: #fef08a; background: #fefce8; }
+    .speed-badge { font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+    .speed-super { color: #0369a1; border: 1px solid #bae6fd; background: #e0f2fe; }
+    .speed-fast  { color: #16a34a; border: 1px solid #bbf7d0; background: #f0fdf4; }
+    .speed-mid   { color: #ca8a04; border: 1px solid #fef08a; background: #fefce8; }
+    .speed-slow  { color: #ea580c; border: 1px solid #fed7aa; background: #fff7ed; }
+    .speed-slug  { color: #dc2626; border: 1px solid #fecaca; background: #fef2f2; }
+    .result-ms { font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+    .result-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .btn-sm { height: 30px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); font-size: 12px; font-family: var(--font); font-weight: 500; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .12s, border-color .12s; text-decoration: none; white-space: nowrap; }
+    .btn-sm:hover { background: var(--surface); border-color: var(--border2); }
+    .btn-sm.copied { color: #16a34a; border-color: #bbf7d0; background: #f0fdf4; }
+    .result-img-wrap { padding: 24px 16px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 180px; }
+    .result-img { max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.12); display: block; }
+
+    /* snippet */
+    .section { margin-top: 32px; }
+    .section h2 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .snippet-wrap { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .snippet-bar { padding: 10px 12px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .snippet-bar code { font-family: var(--mono); font-size: 12px; color: var(--muted); word-break: break-all; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-copy { flex-shrink: 0; height: 26px; padding: 0 10px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg); font-size: 11px; font-family: var(--font); font-weight: 500; color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all .12s; white-space: nowrap; }
+    .btn-copy:hover { background: var(--surface); color: var(--text); border-color: var(--border2); }
+    .btn-copy.copied { color: #16a34a; border-color: #bbf7d0; background: #f0fdf4; }
+    .snippet-code { padding: 14px; background: #0a0a0a; overflow-x: auto; }
+    .snippet-code pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: #e5e5e5; white-space: pre; }
+    .tg { color: #86efac; } .tb { color: #93c5fd; } .ty { color: #fde68a; } .tm { color: #6b7280; }
+
+    /* params table */
+    .params-table { width: 100%; border: 1px solid var(--border); border-radius: var(--r); border-collapse: collapse; overflow: hidden; font-size: 13px; }
+    .params-table th { text-align: left; padding: 9px 14px; font-weight: 500; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); background: var(--surface); border-bottom: 1px solid var(--border); }
+    .params-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+    .params-table tr:last-child td { border-bottom: none; }
+    .params-table code { font-family: var(--mono); font-size: 12px; background: var(--surface); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; }
+    .badge-req { font-size: 10px; font-family: var(--mono); padding: 1px 6px; border-radius: 4px; background: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-weight: 500; }
+    .badge-opt { font-size: 10px; font-family: var(--mono); padding: 1px 6px; border-radius: 4px; background: var(--surface); color: var(--muted); border: 1px solid var(--border); font-weight: 500; }
+
+    /* about */
+    .about-section { margin-top: 20px; padding: 16px 0 0; }
+    .about-section p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .about-section a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border2); text-underline-offset: 2px; }
+    .about-section a:hover { text-decoration-color: var(--text); }
+
+        /* footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    .footer-brand { font-weight: 500; color: var(--text); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+
+    /* mobile */
+    @media (max-width: 480px) {
+      nav { padding: 0 16px; }
+      main { padding: 28px 16px 56px; }
+      .hero { margin-bottom: 28px; }
+      .hero h1 { font-size: 19px; }
+      .hero p { font-size: 13px; }
+      .card-body { padding: 16px; gap: 14px; }
+      .color-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .result-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .result-actions { width: 100%; }
+      .btn-sm { flex: 1; justify-content: center; }
+      .params-table { font-size: 12px; }
+      .params-table th,
+      .params-table td { padding: 8px 10px; }
+      /* hide Required column on small screens */
+      .params-table th:nth-child(3),
+      .params-table td:nth-child(3) { display: none; }
+      .snippet-code { padding: 12px 10px; }
+      .snippet-code pre { font-size: 11.5px; }
+      footer { padding: 16px; }
+    }
+
+    @media (max-width: 360px) {
+      .color-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-favicon">
+      <img src="/favicon-32x32.png" alt="Brat Generator" width="24" height="24" />
+    </div>
+    <span class="nav-title">brat generator</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-sub">api</span>
+</nav>
+
+<main>
+  <div class="hero">
+    <h1>Generate brat-style images</h1>
+    <p>Type your text, pick colors, get a PNG. Supports emoji &amp; long text auto-fit.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-dot"></div>
+      <span>Generator</span>
+    </div>
+    <div class="card-body">
+
+      <div class="field">
+        <label for="inp-text">Text <span class="req">required · max 200 chars</span></label>
+        <input id="inp-text" class="input-text" type="text" placeholder="type something here..." maxlength="200" autocomplete="off" spellcheck="false" />
+        <div class="char-count" id="char-count">0 / 200</div>
+        <div class="err-msg" id="err-text">Text tidak boleh kosong.</div>
+      </div>
+
+      <div class="color-row">
+        <div class="color-field">
+          <label for="hex-bg">Background</label>
+          <div class="color-wrap">
+            <button class="swatch-btn" tabindex="-1" aria-label="Pick background color">
+              <div class="swatch" id="swatch-bg" style="background:#ffffff"></div>
+              <input type="color" id="picker-bg" value="#ffffff" />
+            </button>
+            <input class="hex-input" id="hex-bg" type="text" value="ffffff" maxlength="7" spellcheck="false" aria-label="Background hex color" />
+          </div>
+        </div>
+        <div class="color-field">
+          <label for="hex-color">Text color</label>
+          <div class="color-wrap">
+            <button class="swatch-btn" tabindex="-1" aria-label="Pick text color">
+              <div class="swatch" id="swatch-color" style="background:#000000"></div>
+              <input type="color" id="picker-color" value="#000000" />
+            </button>
+            <input class="hex-input" id="hex-color" type="text" value="000000" maxlength="7" spellcheck="false" aria-label="Text hex color" />
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-gen" id="btn-gen">Generate</button>
+    </div>
+  </div>
+
+
+  <div class="about-section">
+    <p>Brat Generator is a free image API that renders text in the iconic blurry, lowercase, compressed style popularized by Charli XCX&#39;s 2024 album. Pass a text string, optional background and text hex colors, and receive a ready-to-use PNG &#8212; no signup required. Built and hosted by <a href="https://obscuraworks.com" target="_blank" rel="noopener">Obscuraworks</a>.</p>
+  </div>
+  <div class="result" id="result">
+    <div class="result-header">
+      <div class="result-left">
+        <span>output.png</span>
+        <span class="cache-badge" id="cache-badge"></span>
+        <span class="result-ms" id="result-ms"></span>
+        <span class="speed-badge" id="speed-badge" style="display:none"></span>
+      </div>
+      <div class="result-actions">
+        <button class="btn-sm" id="btn-copy-url">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy URL
+        </button>
+        <a class="btn-sm" id="btn-dl" href="#" download="brat.png">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </div>
+    <div class="result-img-wrap">
+      <img class="result-img" id="result-img" src="" alt="Generated brat-style image" />
+    </div>
+  </div>
+
+  <div class="section" id="snip-sec" style="display:none">
+    <h2>API URL</h2>
+    <div class="snippet-wrap">
+      <div class="snippet-bar">
+        <code id="snip-url"></code>
+        <button class="btn-copy" id="btn-copy-snip">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="snippet-code">
+        <pre id="snip-pre"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Parameters</h2>
+    <table class="params-table">
+      <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>text</code></td>
+          <td><code>string</code></td>
+          <td><span class="badge-req">required</span></td>
+          <td>Text to render. Max 200 characters. Emoji supported.</td>
+        </tr>
+        <tr>
+          <td><code>bg</code></td>
+          <td><code>string</code></td>
+          <td><span class="badge-opt">optional</span></td>
+          <td>Background hex color. Default: <code>ffffff</code></td>
+        </tr>
+        <tr>
+          <td><code>color</code></td>
+          <td><code>string</code></td>
+          <td><span class="badge-opt">optional</span></td>
+          <td>Text hex color. Default: <code>000000</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-brand">PT OBSCURAWORKS DIGITAL INDONESIA</div>
+  <span>Brat Generator &mdash; &copy; 2026 Obscuraworks</span>
+</footer>
+
+<script>
+  const API = 'https://brat.obscuraworks.org';
+  let lastUrl = '';
+
+  const $ = id => document.getElementById(id);
+  const inpText = $('inp-text'), charCount = $('char-count'), errText = $('err-text');
+  const btnGen  = $('btn-gen');
+  const result  = $('result'), resultImg = $('result-img');
+  const cacheBadge = $('cache-badge'), resultMs = $('result-ms');
+  const btnCopyUrl = $('btn-copy-url'), btnDl = $('btn-dl');
+  const snipSec = $('snip-sec'), snipUrl = $('snip-url'), snipPre = $('snip-pre');
+  const btnCopySnip = $('btn-copy-snip');
+
+  const col = {
+    bg:    { picker: $('picker-bg'),    hex: $('hex-bg'),    swatch: $('swatch-bg'),    val: '#ffffff' },
+    color: { picker: $('picker-color'), hex: $('hex-color'), swatch: $('swatch-color'), val: '#000000' },
+  };
+
+  function validHex(h) { return /^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(h); }
+  function normHex(h) {
+    h = h.replace('#','');
+    if (h.length === 3) h = h.split('').map(c=>c+c).join('');
+    return '#' + h.toLowerCase();
+  }
+
+  Object.values(col).forEach(f => {
+    f.picker.addEventListener('input', () => {
+      f.hex.value = f.picker.value.replace('#','');
+      f.swatch.style.background = f.val = f.picker.value;
+      updateSnip();
+    });
+    f.hex.addEventListener('input', () => {
+      if (validHex(f.hex.value)) {
+        const n = normHex(f.hex.value);
+        f.picker.value = n; f.swatch.style.background = f.val = n;
+        updateSnip();
+      }
+    });
+    f.hex.addEventListener('blur', () => {
+      f.hex.value = validHex(f.hex.value) ? normHex(f.hex.value).replace('#','') : f.val.replace('#','');
+    });
+  });
+
+  inpText.addEventListener('input', () => {
+    const l = inpText.value.length;
+    charCount.textContent = `${l} / 200`;
+    charCount.className = 'char-count' + (l > 180 ? ' warn' : '') + (l > 200 ? ' over' : '');
+    errText.classList.remove('show');
+    inpText.classList.remove('error');
+    updateSnip();
+  });
+
+  function buildUrl() {
+    const t = inpText.value.trim();
+    if (!t) return null;
+    const p = new URLSearchParams({ text: t });
+    const bg = col.bg.val.replace('#',''), cl = col.color.val.replace('#','');
+    if (bg !== 'ffffff') p.set('bg', bg);
+    if (cl !== '000000') p.set('color', cl);
+    return `${API}/generate?${p}`;
+  }
+
+  function updateSnip() {
+    const url = buildUrl();
+    if (!url) { snipSec.style.display = 'none'; return; }
+    snipSec.style.display = 'block';
+    const rel = url.replace(API,'');
+    snipUrl.textContent = rel;
+    snipPre.innerHTML =
+      `<span class="tm">$</span> <span class="tg">curl</span> <span class="ty">-o</span> brat.png \\\n  <span class="tb">"${url}"</span>`;
+  }
+
+  async function generate() {
+    const t = inpText.value.trim();
+    if (!t) { inpText.classList.add('error'); errText.classList.add('show'); inpText.focus(); return; }
+
+    btnGen.disabled = true;
+    btnGen.innerHTML = '<div class="spinner"></div> Generating...';
+
+    const url = buildUrl();
+    const t0  = performance.now();
+
+    try {
+      const res = await fetch(url);
+      const ms  = Math.round(performance.now() - t0);
+      if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `HTTP ${res.status}`); }
+
+      const blob   = await res.blob();
+      const objUrl = URL.createObjectURL(blob);
+      const xc     = res.headers.get('x-cache') || '';
+
+      if (resultImg.src.startsWith('blob:')) URL.revokeObjectURL(resultImg.src);
+      resultImg.src = objUrl;
+      lastUrl = url;
+
+      cacheBadge.textContent = xc;
+      cacheBadge.className   = 'cache-badge ' + (xc === 'HIT' ? 'hit' : 'miss');
+      resultMs.textContent   = `${ms}ms`;
+
+      const sb = $('speed-badge');
+      let speedLabel, speedClass;
+      if (ms <= 50)        { speedLabel = 'SUPER FAST'; speedClass = 'speed-super'; }
+      else if (ms <= 100)  { speedLabel = 'FAST';       speedClass = 'speed-fast';  }
+      else if (ms <= 500)  { speedLabel = 'MEDIUM';     speedClass = 'speed-mid';   }
+      else if (ms <= 1000) { speedLabel = 'SLOW';       speedClass = 'speed-slow';  }
+      else                 { speedLabel = 'SLUGGISH';   speedClass = 'speed-slug';  }
+      sb.textContent = speedLabel;
+      sb.className   = 'speed-badge ' + speedClass;
+      sb.style.display = '';
+      btnDl.href = objUrl;
+      btnDl.download = `brat-${Date.now()}.png`;
+
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch(err) {
+      alert(`Error: ${err.message}`);
+    } finally {
+      btnGen.disabled = false;
+      btnGen.textContent = 'Generate';
+    }
+  }
+
+  function copyTo(text, btn) {
+    function flashCopied(btn) {
+      const orig = btn.innerHTML;
+      // Replace only text nodes, keep SVG icons intact
+      Array.from(btn.childNodes).forEach(n => {
+        if (n.nodeType === Node.TEXT_NODE && n.textContent.trim()) {
+          n.textContent = n.textContent.replace(/\S.*/, ' Copied!');
+        }
+      });
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1800);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text)
+        .then(() => flashCopied(btn))
+        .catch(() => {
+          const ta = Object.assign(document.createElement('textarea'), { value: text });
+          ta.style.cssText = 'position:fixed;opacity:0';
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch(e) {}
+          document.body.removeChild(ta);
+          flashCopied(btn);
+        });
+    } else {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      flashCopied(btn);
+    }
+  }
+
+  btnGen.addEventListener('click', generate);
+  inpText.addEventListener('keydown', e => { if (e.key === 'Enter') generate(); });
+  btnCopyUrl.addEventListener('click', () => { if (lastUrl) copyTo(lastUrl, btnCopyUrl); });
+  btnCopySnip.addEventListener('click', () => { const u = buildUrl(); if (u) copyTo(u, btnCopySnip); });
+
+  updateSnip();
+</script>
+</body>
+</html>

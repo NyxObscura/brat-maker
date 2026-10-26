@@ -1,0 +1,22 @@
+{
+  "name": "brat-generator",
+  "version": "1.0.0",
+  "description": "High-performance Brat-style image generator API",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.65",
+    "express": "^4.19.2",
+    "lru-cache": "^11.2.7",
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.2",
+    "redis": "^4.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
